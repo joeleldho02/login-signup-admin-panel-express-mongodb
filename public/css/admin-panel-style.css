@@ -1,0 +1,47 @@
+*{
+    margin : 0;
+    padding: 0;
+}
+a,button a{
+    text-decoration: none;
+}
+.bg-color{
+    background-color: rgb(102, 27, 27);
+}
+.navbar a,
+.btn a{
+    color: #ffffff;
+}
+.navbar a:hover,
+.btn a:hover{
+    text-decoration: none;
+}
+.navbar button{
+    background-color: rgb(138, 54, 54); 
+    font-weight: 400;
+}
+.navbar button:hover{
+    background-color: rgb(165, 20, 20);
+}
+.container button{
+    background-color: rgb(12, 93, 27);
+    font-weight: 400;
+}
+.container button:hover{
+    background-color: rgb(18, 138, 40);
+}
+.iconbtn{
+    color: #000000;
+}
+.iconbtn:hover{
+    color: rgb(102, 27, 27);
+}
+.table td,
+.table th{
+    text-align: center;
+    border-top: 2px solid rgb(102, 27, 27);
+}
+.table tr:hover{
+    background-color: rgb(185, 136, 136);
+    cursor: pointer;
+}

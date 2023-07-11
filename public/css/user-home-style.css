@@ -1,0 +1,23 @@
+*{
+    margin : 0;
+    padding: 0;
+}
+a,button a{
+    text-decoration: none;
+}
+.bg-color{
+    background-color: rgb(27, 33, 102);
+}
+.navbar a{
+    color: #ffffff;
+}
+.navbar a:hover{
+    text-decoration: none;
+}
+.navbar button{
+    background-color: rgb(16, 21, 78); 
+    font-weight: 400;
+}
+.navbar button:hover{
+    background-color: rgb(27, 36, 141);
+}
