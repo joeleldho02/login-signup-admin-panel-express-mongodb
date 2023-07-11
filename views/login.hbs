@@ -11,7 +11,7 @@
         integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
     
-    <link rel="stylesheet" href="/css/style.css"> 
+    <link rel="stylesheet" href="/css/login-style.css"> 
 </head>
 
 <body>
@@ -32,13 +32,15 @@
                         <p class="text-center text-white-50">
                             Sign in by entering the information below
                         </p>
-                        <form action="/login" method="post" class="login-form px-md-5">
+                        <form class="login-form px-md-5" name="loginForm" role="form"
+                                id="loginForm" method='POST' action="/login">
                             {{!-- <div class="form-group finput d-flex">
                                 <div class="icon d-flex align-items-center justify-content-center">
                                     <span class="fa fa-user text-white"></span>
                                 </div>
                                 <input type="text" class="form-control my-2 mx-2" id="username" name="userName"
                                     placeholder="Username" />
+                                <div class="error"></div>
                             </div> --}}
                             <div class="form-group finput d-flex">
                                 <div class="icon d-flex align-items-center justify-content-center">
@@ -46,16 +48,21 @@
                                 </div>
                                 <input type="text" class="form-control my-2 mx-2" id="email" name="email"
                                     placeholder="Email" />
+                                <div class="error"></div>
                             </div>
                             <div class="form-group finput d-flex mt-3">
                                 <div class="icon d-flex align-items-center justify-content-center">
                                     <span class="fa fa-lock text-white"></span>
                                 </div>
                                 <input type="password" class="form-control my-2 mx-2" id="password" name="password"
-                                    placeholder="Password" />
+                                    placeholder="Password" autocomplete="on"/>
+                                <div class="error"></div>
+                            </div>
+                            <div class="my-2 form-group d-flex justify-content-center">
+                                <div id="loading" class="spinner-border text-primary" ></div>
                             </div>
                             <div class="form-group mt-4 mb-2">
-                                <button type="submit" class="btn form-control btn-primary text-white rounded submit px-3 ">
+                                <button id="btn-submit" type="submit" class="btn form-control btn-primary text-white rounded submit px-3 ">
                                     LOGIN
                                 </button>
                             </div>

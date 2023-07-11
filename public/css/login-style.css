@@ -14,10 +14,6 @@ body{
 .login-wrap{
     background-color: #000232;
     padding: 10px;
-    /* transform: translate(-50%,-50%);
-    position:absolute;
-    top:50%;
-    left:50%; */
 }
 .login-wrap img{
     width:100px;
@@ -43,6 +39,7 @@ body{
     background-color: #000232;
     color: rgb(0, 255, 255);
     border: none;
+    outline: none;
 }
 .form-group input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
     color: #ffffff;
@@ -53,4 +50,21 @@ body{
 }
 .text-pink:hover{
     color:#c5a5bf
+}
+
+.form-group #loading{
+    display: none;
+}
+
+.form-group.error input{
+  border-color: #ff3860;
+}
+
+.form-group .error {
+  color: #ff3860;
+  font-size: 13px;
+  font-weight: 600;
+  height: 13px;
+  text-align: center;
+  padding-top: 5px;
 }

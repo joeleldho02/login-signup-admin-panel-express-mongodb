@@ -5,6 +5,9 @@ const logger = require('morgan');
 const bodyparser = require('body-parser');
 const session = require('express-session');
 const { v4:uuidv4 } = require('uuid');
+
+const connectDB = require('./server/database/connection')
+
 const app = express();
 const homeRouter = require('./routes/home');
 
@@ -13,6 +16,9 @@ const PORT = process.env.PORT || 8080;
 
 //log requests
 app.use(logger('tiny'));
+
+//monogodb connection
+connectDB();
 
 //parse request to body-parser
 app.use(bodyparser.json());
