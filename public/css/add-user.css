@@ -1,0 +1,83 @@
+*{
+    margin: 0;
+    /* font-family: 'Roboto', sans-serif; */
+}
+a{
+    text-decoration: none;
+}
+body {
+    background-image: url("/img/admin-bg.jpg");
+    overflow: hidden;
+}
+
+.hover-blue:hover{
+    color:rgb(28, 28, 112);
+}
+p{
+    font-size: small;
+}
+body{
+    background-color: #ffffff;
+}
+.login-wrap{
+    background-color: rgb(118, 38, 38);
+    padding: 10px;
+    /* transform: translate(-50%,-50%);
+    position:absolute;
+    top:50%;
+    left:50%; */
+    width:500px
+}
+.login-wrap img{
+    width:100px;
+    margin-bottom: 25px;
+}
+.text-pink{
+    color:#b689b0;
+}
+.finput{
+    border-bottom-style: solid;
+    border-width: 2px;
+    border-color: #996192;
+}
+.form-group button{
+    background-color: rgb(196, 26, 26);
+    border: none;
+}
+.form-group button:hover{
+    background-color: rgb(218, 55, 55);
+}
+.form-group input[type="text"], 
+.form-group input[type="password"],
+.form-group input[type="email"]{
+    background-color: rgb(81, 27, 27);
+    color: rgb(0, 255, 255);
+    border: none;
+}
+.form-group input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #ffffff;
+    opacity: 0.5; /* Firefox */
+}
+.form-group a{
+    font-size: small;
+}
+.text-pink:hover{
+    color:rgb(255, 255, 255)
+}
+
+.form-group #loading{
+    display: none;
+}
+
+.form-group.error input{
+  border-color: #ff3860;
+}
+
+.form-group .error {
+  color: #ff3860;
+  font-size: 13px;
+  font-weight: 600;
+  height: 13px;
+  text-align: center;
+  padding-top: 5px;
+}

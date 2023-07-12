@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{{!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -9,18 +9,22 @@
         integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
 </head>
-<body>
-    <nav class="navbar navbar-light bg-color">
+<body> --}}
+    {{!-- <nav class="navbar navbar-light bg-color">
         <h2 class="h2 text-white mx-5">Welcome USERNAME</h2>
         <a href="/logout"><button class="btn mx-5 text-white">LOGOUT</button></a>
-    </nav>
+    </nav> --}}
 
     <div class="row justify-content-center mt-5 pt-5">
         <div class="col-6">
           <h1>Name: {{user.name}}</h1>
-          <h3>Phone: {{user.phone}}</h3>
+          {{#if user.phone}}
+            <h3>Phone: {{user.phone}}</h3>
+          {{/if}}
           <h3>Email: {{user.email}}</h3>
-          <h3>Gender: {{user.gender}}</h3>
+          {{#if user.gender}}
+            <h3>Gender: {{user.gender}}</h3>
+          {{/if}}
         </div>
     
         <div class="card rounded-5" style="width: 18rem;">
@@ -31,12 +35,13 @@
           />
           <div class="card-body">
             <h5 class="card-title">{{user.name}}</h5>
-            <p class="card-text">Hi this is card text.</p>
+            <p class="card-text"><b>Strengths:</b> Hard work, honesty, quick-learner, time management, self-motivated</p>
+            <p class="card-text"><b>Long-term Goal:</b> Get a high income job</p>
           </div>
         </div>
       </div>
       <br>
       <hr>
       <br>
-</body>
-</html>
+{{!-- </body>
+</html> --}}

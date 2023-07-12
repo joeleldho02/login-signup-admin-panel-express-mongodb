@@ -67,19 +67,20 @@ function validateInputs(e) {
 form.addEventListener('submit', function(e) {
     //e.preventDefault();
     console.log('Click was recorded');
-    if(validateInputs(e)) {
-        setVisible('loading');
-        fetch('/login', {method: 'POST'})
-            .then(function(response) {
-                if(response.ok) {
-                    console.log('User Allowed');
-                    setHide('loading');
-                    return;
-                }
-                throw new Error('Request failed.');
-            })
-            .catch(function(error) {
-                console.log(error);
-        });
+    if(validateInputs(e)) {    //---------------------- > enable this
+        // setVisible('loading');
+        // fetch('/login', {method: 'POST'})
+        //     .then(function(response) {
+        //         if(response.ok) {
+        //             console.log('User Allowed');
+        //             form.reset();
+        //             setHide('loading');
+        //             return;
+        //         }
+        //         throw new Error('Request failed.');
+        //     })
+        //     .catch(function(error) {
+        //         console.log(error);
+        // });
     }
 })

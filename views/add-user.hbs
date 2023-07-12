@@ -1,0 +1,165 @@
+{{#if admin}}
+    <head>
+        <link rel="stylesheet" href="/css/add-user.css" />
+    </head>
+{{else}}
+    <head>
+        <link rel="stylesheet" href="/css/signup.css" />
+    </head>
+{{/if}}
+
+<section class="ftco-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 text-center mb-5">
+                <h2 class="heading-section"></h2>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-4">
+                <div class="login-wrap py-5 rounded-3">
+                    <h5 class="text-center mb-0 text-white">
+                        {{#if admin}}
+                            {{#if user}}
+                                EDIT USER DETAILS 
+                            {{else}}
+                                ADD NEW USER
+                            {{/if}}                            
+                        {{else}}
+                            REGISTER
+                        {{/if}}
+                    </h5>
+                    <p class="text-center text-white-50">
+                        {{#if admin}}
+                            {{#if user}}
+                                EDIT USER DETAILS 
+                            {{else}}
+                                ADD NEW USER
+                            {{/if}}
+                        {{else}}
+                            Enter the following information to register
+                        {{/if}}
+
+                    </p>
+                    <form name="signupForm" id="signupForm" class="login-form px-md-5" 
+                        {{#if user}} 
+                            method='UPDATE' 
+                            action="/admin/users/{{user.id}}"               
+                        {{else}}               
+                            method='POST' 
+                            action="/users"
+                        {{/if}}
+                        >
+                        <div class="form-group finput d-flex">
+                            <div class="icon d-flex align-items-center justify-content-center">
+                                <span class="fa fa-user text-white"></span>
+                            </div>
+                            <input type="text" class="form-control my-2 mx-2" id="username" name="userName"
+                                placeholder="Name" 
+                                {{#if user}}
+                                    value="{{user.name}}" 
+                                {{/if}}
+                            />
+                            <div class="error" {{#if admin}} style="color: #ffffff;" {{/if}}></div>
+                        </div>
+                        <div class="form-group mt-3">
+                            <label class="form-check-label text-white" for="genderRadio1">Gender :&emsp;Female</label>
+                            <input class="form-check-input mx-3" type="radio" name="genderRadio" id="genderRadio1" value="Female"
+                                {{#if user}}
+                                    {{#ifEqual user.gender "Female"}}
+                                        checked
+                                    {{/ifEqual}}
+                                {{else}} 
+                                    checked
+                                {{/if}}
+                            >
+                            <label class="form-check-label text-white ms-5" for="genderRadio2">Male</label>
+                            <input class="form-check-input mx-3" type="radio" name="genderRadio" id="genderRadio2" value="Male"
+                                {{#if user}}
+                                    {{#ifEqual user.gender "Male"}}
+                                        checked
+                                    {{/ifEqual}}
+                                {{/if}}                                
+                                >
+                        </div>
+                        <div class="form-group finput d-flex mt-3">
+                            <div class="icon d-flex align-items-center justify-content-center">
+                                <span class="fa fa-phone text-white"></span>
+                            </div>
+                            <input type="text" class="form-control my-2 mx-2" id="phone" name="phone"
+                                placeholder="Phone Number" 
+                                {{#if user}}
+                                    value="{{user.phone}}" 
+                                {{/if}}
+                            />
+                            <div class="error" {{#if admin}} style="color: #ffffff;" {{/if}}></div>
+                        </div>
+                        <div class="form-group finput d-flex mt-3">
+                            <div class="icon d-flex align-items-center justify-content-center">
+                                <span class="fa fa-envelope text-white"></span>
+                            </div>
+                            <input type="text" class="form-control my-2 mx-2" id="email" name="email"
+                                placeholder="Email" 
+                                {{#if user}}
+                                    value="{{user.email}}" 
+                                {{/if}}
+                            />
+                            <div class="error" {{#if admin}} style="color: #ffffff;" {{/if}}></div>
+                        </div>
+                        {{#unless user}}
+                        <div class="form-group finput d-flex mt-3">
+                            <div class="icon d-flex align-items-center justify-content-center">
+                                <span class="fa fa-lock text-white"></span>
+                            </div>
+                            <input type="password" class="form-control my-2 mx-2" id="password" name="password"
+                                placeholder="Password" />
+                            <div class="error" {{#if admin}} style="color: #ffffff;" {{/if}}></div>
+                        </div>
+                        <div class="form-group finput d-flex mt-3">
+                            <div class="icon d-flex align-items-center justify-content-center">
+                                <span class="fa fa-lock text-white"></span>
+                            </div>
+                            <input type="password" class="form-control my-2 mx-2" id="repassword" name="repassword"
+                                placeholder="Confirm Password" />
+                            <div class="error" {{#if admin}} style="color: #ffffff;" {{/if}}></div>
+                        </div>
+                        {{/unless}}
+                        
+                        <div class="my-2 form-group d-flex justify-content-center">
+                            <div id="loading" class="spinner-border text-primary"></div>
+                        </div>
+                        <div class="form-group mt-4 mb-2">
+                            <button id="btn-submit" type="submit" class="btn form-control btn-primary text-white rounded submit px-3">
+                                {{#if admin}}
+                                    {{#if user}}
+                                        UPDATE USER
+                                    {{else}}
+                                        ADD USER
+                                    {{/if}} 
+                                {{else}}
+                                    SIGNUP
+                                {{/if}}
+                            </button>
+                        </div>
+                    </form>
+                    {{#unless admin}}
+                    <div class="w-100 text-center mt-4 text text-white">
+                        <p class="mb-0 text-white-50">Have already an account?</p>
+                        <a href="/login" class="text-pink">Login here</a>
+                    </div>
+                    {{/unless}}
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+    crossorigin="anonymous"></script>
+{{#if user}}
+<script src="/js/validate-update.js"></script>                   
+{{else}}
+<script src="/js/validate-signup.js"></script>                   
+{{/if}}
