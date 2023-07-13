@@ -50,14 +50,12 @@ exports.findOne = (id) => {
                 .catch(err => {
                     reject("Error finding user in Database");                    
                 });
-    })
-    
+    })    
 };
 
 //find and retrieve user(s)
-exports.find = (req, res) => {
-    
-    Userdb.find({ isAdmin: false }).sort({ name: 1 }).lean()
+exports.find = (req, res) => {    
+    Userdb.find({ isAdmin: false },{name:1, gender:1 ,phone:1, email:1, isAdmin:1}).sort({ name: 1 }).lean()
         .then(user => {
             console.log(user);
             res.render('show-users', {
