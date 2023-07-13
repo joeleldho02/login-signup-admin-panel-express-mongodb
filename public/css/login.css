@@ -17,7 +17,7 @@ body{
 }
 .login-wrap img{
     width:100px;
-    margin-bottom: 25px;
+    /* margin-bottom: 25px; */
 }
 .text-pink{
     color:#b689b0;

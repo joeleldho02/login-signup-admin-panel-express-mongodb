@@ -32,24 +32,28 @@
                     <p class="text-center text-white-50">
                         {{#if admin}}
                             {{#if user}}
-                                EDIT USER DETAILS 
+                                Update user details
                             {{else}}
-                                ADD NEW USER
+                                Enter details of new user
                             {{/if}}
                         {{else}}
                             Enter the following information to register
                         {{/if}}
-
                     </p>
                     <form name="signupForm" id="signupForm" class="login-form px-md-5" 
                         {{#if user}} 
-                            method='UPDATE' 
-                            action="/admin/users/{{user.id}}"               
+                            method='POST' 
+                            action="/admin/edituser"               
                         {{else}}               
                             method='POST' 
-                            action="/users"
+                            action="/admin/users"
                         {{/if}}
                         >
+                        {{#if user}}
+                                <div class="form-group">
+                                <input type="hidden" id="userID" name="userID" class="form-control" value="{{userId}}" >
+                                </div>
+                        {{/if}}
                         <div class="form-group finput d-flex">
                             <div class="icon d-flex align-items-center justify-content-center">
                                 <span class="fa fa-user text-white"></span>

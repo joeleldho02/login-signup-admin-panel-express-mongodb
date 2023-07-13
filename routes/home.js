@@ -3,14 +3,7 @@ const router = express.Router();
 const services = require('../server/services/render');
 const controller = require('../server/controller/controller');
 
-// const userData = {
-//     name: "Rahul Bhaiyaa",
-//     phone: "9123456780",
-//     email: "rahul@yahoo.com"
-// };
-
 router.get('/', function(req, res){
-    //res.render('admin-home');
     if(req.session.userLoggedIn){
         if(req.session.isAdmin)
             res.redirect('/admin');        
@@ -46,9 +39,11 @@ router.get('/login', function(req, res){
 
 router.post('/login', async function(req, res){
     console.log(req.body);
-            // req.session.userLoggedIn = true;
+     //-------- CODE TO ADD ADMIN -----------//
+
+            // req.session.userLoggedIn = true;        
             // req.session.isAdmin = true;
-            // req.session.loggedUser = userData;
+            // req.session.loggedUser = userData;     
             // res.redirect('/');
     try{
         const userData = await controller.login(req.body);
@@ -72,7 +67,6 @@ router.post('/login', async function(req, res){
 router.get('/signup', function(req, res){
     res.render('add-user', {
         title:'Signup',
-        //style: 'signup-style.css'
     });
 });
 
@@ -80,11 +74,5 @@ router.get('/logout', function(req, res){
     req.session.destroy();
     res.redirect('/');
 });
-
-router.post('/users',controller.create);
-router.get('/users',controller.find);
-router.put('/users/:id',controller.update);
-router.delete('/users/:id',controller.delete);
-
 
 module.exports = router;  

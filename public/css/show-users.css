@@ -2,8 +2,12 @@
     margin : 0;
     padding: 0;
 }
-a,button a{
+/* a,button a{
     text-decoration: none;
+} */
+a,.btn-success a{
+    text-decoration: none;
+    color: #ffffff;
 }
 body {
     background-image: url("/img/admin-bg.jpg");
@@ -12,28 +16,27 @@ body {
 .bg-color{
     background-color: rgb(102, 27, 27);
 }
-/* .navbar a,
-.btn a{
+.btn-search{
+    background-color: rgb(102, 27, 27);
     color: #ffffff;
 }
-.navbar a:hover,
-.btn a:hover{
-    text-decoration: none;
-}
-.navbar button{
-    background-color: rgb(138, 54, 54); 
-    font-weight: 400;
-}
-.navbar button:hover{
-    background-color: rgb(165, 20, 20);
-} */
-.container button{
+.btn-success{
     background-color: rgb(12, 93, 27);
     font-weight: 400;
 }
-.container button:hover{
+.btn-success:hover{
     background-color: rgb(18, 138, 40);
 }
+/* .container button{
+    background-color: rgb(12, 93, 27);
+    font-weight: 400;
+} */
+.btn-search{
+    background-color: rgb(102, 27, 27);
+}
+/* .container button:hover{
+    background-color: rgb(18, 138, 40);
+} */
 .iconbtn{
     color: #000000;
 }

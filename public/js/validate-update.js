@@ -1,4 +1,4 @@
-const form = document.getElementById('signupForm'); 
+const form = document.getElementById('signupForm');
 const username = document.getElementById('username');
 const genderRadio = document.getElementsByName('genderRadio');
 const phone = document.getElementById('phone');
@@ -22,18 +22,18 @@ const setSuccess = element => {
 };
 const isValidEmail = email => {
     //const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    const re =/[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,3}/;
+    const re = /[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,3}/;
     return re.test(String(email).toLowerCase());
 }
 
 const setVisible = (x) => {
     var element = document.getElementById(x);
-    element.style.display = 'block'; 
+    element.style.display = 'block';
 }
-  
+
 const setHide = (x) => {
     var element = document.getElementById(x);
-    element.style.display = 'none'; 
+    element.style.display = 'none';
 }
 
 function validateInputs(e) {
@@ -45,29 +45,29 @@ function validateInputs(e) {
     const phoneValue = phone.value.trim();
     const emailValue = email.value.trim();
 
-    if(usernameValue === '') {
+    if (usernameValue === '') {
         setError(username, 'Please enter user name', e);
         username.focus();
         return false;
-    }  
-    else{
+    }
+    else {
         setSuccess(username);
     }
 
     const phoneno = /^\d{10}$/;
-    if(phoneValue === ""){
+    if (phoneValue === "") {
         setSuccess(phone);
     }
-    else if(!phoneValue.match(phoneno)){
+    else if (!phoneValue.match(phoneno)) {
         setError(phone, 'Enter valid number', e);
         phone.focus();
         return false;
     }
-    else{
+    else {
         setSuccess(phone);
     }
 
-    if(emailValue === '') {
+    if (emailValue === '') {
         setError(email, 'Please enter user email', e);
         email.focus();
         return false;
@@ -75,18 +75,18 @@ function validateInputs(e) {
         setError(email, 'Provide a valid email address', e);
         email.focus();
         return false;
-    } 
-    else{
+    }
+    else {
         setSuccess(email);
     }
 
     return true;
 }
 
-form.addEventListener('submit', function(e) {
+form.addEventListener('submit', function (e) {
     //e.preventDefault();
     console.log('update form submit was recorded');
-    if(validateInputs(e)) { //---------------------- >enable this 
-        
+    if (validateInputs(e)) { //---------------------- >enable this 
+        alert("User updated Successfully!");       
     }
 })

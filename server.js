@@ -26,7 +26,7 @@ app.use(logger('tiny'));
 connectDB();
 
 //nocache
-app.use(nocache());
+app.use(nocache());                 //---->enable this 
 
 //parse request to body-parser
 app.use(bodyparser.json());
@@ -58,7 +58,9 @@ app.use('/admin', adminRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-    next();
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err);
 });
 
 // error handler

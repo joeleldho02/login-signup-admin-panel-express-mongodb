@@ -125,6 +125,10 @@ form.addEventListener('submit', function(e) {
     //e.preventDefault();
     console.log('form submit was recorded');
     if(validateInputs(e)){ // ---------------------- >enable this
+        if(document.getElementById('btn-submit').innerText === "ADD USER")
+            alert("User added Successfully!");
+        else if(document.getElementById('btn-submit').innerText === "SIGNUP")
+            alert("Signup successfull! Please login to continue");
         //setVisible('loading');
         //form.reset();
         
