@@ -46,7 +46,7 @@
                             action="/admin/edituser"               
                         {{else}}               
                             method='POST' 
-                            action="/admin/users"
+                            action="/admin/adduser"
                         {{/if}}
                         >
                         {{#if user}}
@@ -62,6 +62,8 @@
                                 placeholder="Name" 
                                 {{#if user}}
                                     value="{{user.name}}" 
+                                {{else}}
+                                    value="{{inputData.userName}}"
                                 {{/if}}
                             />
                             <div class="error" {{#if admin}} style="color: #ffffff;" {{/if}}></div>
@@ -74,7 +76,13 @@
                                         checked
                                     {{/ifEqual}}
                                 {{else}} 
-                                    checked
+                                    {{#if inputData}}
+                                        {{#ifEqual inputData.genderRadio "Female"}}
+                                            checked
+                                        {{/ifEqual}}
+                                    {{else}}
+                                        checked
+                                    {{/if}} 
                                 {{/if}}
                             >
                             <label class="form-check-label text-white ms-5" for="genderRadio2">Male</label>
@@ -83,6 +91,12 @@
                                     {{#ifEqual user.gender "Male"}}
                                         checked
                                     {{/ifEqual}}
+                                {{else}} 
+                                    {{#if inputData}}
+                                        {{#ifEqual inputData.genderRadio "Male"}}
+                                            checked
+                                        {{/ifEqual}}
+                                    {{/if}} 
                                 {{/if}}                                
                                 >
                         </div>
@@ -94,6 +108,8 @@
                                 placeholder="Phone Number" 
                                 {{#if user}}
                                     value="{{user.phone}}" 
+                                {{else}}
+                                    value="{{inputData.phone}}"
                                 {{/if}}
                             />
                             <div class="error" {{#if admin}} style="color: #ffffff;" {{/if}}></div>
@@ -146,6 +162,7 @@
                             </button>
                         </div>
                     </form>
+                    <h6 class="h6 text-white text-center my-2">{{signupErr}}</h6> 
                     {{#unless admin}}
                     <div class="w-100 text-center mt-4 text text-white">
                         <p class="mb-0 text-white-50">Have already an account?</p>

@@ -1,10 +1,16 @@
+{{!-- <body onload="displayAlert()"> --}}
 <section>
-  <div class="container m-5 p-5 m-auto">
+  {{!-- <div class="container px-5 m-auto">
+    <div id="alertMsgBox" class="alert alert-success m-2 bg-success p-1 text-center" style="display: none;" role="alert">
+      <p id="alertMsg" class="text-white">{{alertMsg}}</p>
+    </div>
+  </div> --}}
+  <div class="container m-5 p-5 m-auto">    
     <button class="btn btn-success mb-2"><a href="/admin/add-user"><i class="fa fa-user-plus"></i> Add User</a></button>
     <button class="btn btn-success mb-2"><a href="/admin/users"><i class="fa fa-users"></i> Show All Users</a></button>
     <div class="input-group mb-3 ms-3 w-25 float-end">
-      <form id="search-hidden-form" action="/admin/searchuser/" method="POST" class="p-0">
-        <input type="text" name="findValue" id="findValue" class="form-control" placeholder="User name">
+      <form id="search-hidden-form" action="/admin/users/" method="GET" class="p-0">
+        <input type="text" name="searchuser" id="searchuser" class="form-control" placeholder="User name">
       </form>
       <div class="input-group-append">
         <button class="btn btn-search bg-color rounded-end-2 rounded-start-0 text-white" id="searchBtn"
@@ -32,13 +38,13 @@
           <td>{{email}}</td>
           <td>
             <a href="/admin/edit-user/{{_id}}"><span class="fa fa-pencil mx-2 fa-lg iconbtn"
-                title="Edit {{name}} {{_id}}"></span></a>
+                title="Edit {{name}}"></span></a>
             <form id="hidden-form-{{@index}}" action="/admin/deleteuser" method="POST" style="display: none;">
               <input type="hidden" name="userID" value="{{_id}}" />
             </form>
             <button class="btn" id="deleteBtn" onclick="confirmDelete('hidden-form-{{@index}}', '{{name}}')"
               style="border: none; box-shadow: none; background: transparent;">
-              <span class=" fa fa-trash fa-lg iconbtn" title="Delete {{name}} {{_id}} "></span>
+              <span class=" fa fa-trash fa-lg iconbtn" title="Delete {{name}}"></span>
             </button>
           </td>
         </tr>
@@ -64,4 +70,18 @@
   function searchPost(formID) {
     document.getElementById(formID).submit();
   }
+  //function displayAlert() {
+  //  if(document.getElementById('alertMsg').textContent.length !== 0){
+  //    showAlert();
+  //    setTimeout("hideAlert()", 2000);
+  //  }
+  //}
+  //function hideAlert() {
+  //  document.getElementById('alertMsgBox').style.display = 'none';
+  //}
+  //function showAlert() {
+  //  document.getElementById('alertMsgBox').style.display = 'block';
+  //} 
+
 </script>
+{{!-- </body> --}}

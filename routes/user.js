@@ -37,42 +37,18 @@ router.get('/login', function(req, res){
             err: req.session.loginErr});
 });
 
-router.post('/login', async function(req, res){
-    console.log(req.body);
-     //-------- CODE TO ADD ADMIN -----------//
-
-            // req.session.userLoggedIn = true;        
-            // req.session.isAdmin = true;
-            // req.session.loggedUser = userData;     
-            // res.redirect('/');
-    try{
-        const userData = await controller.login(req.body);
-        console.log("Login Success: " + userData);
-        if(userData){
-            req.session.userLoggedIn = true;
-            req.session.isAdmin = userData.isAdmin;
-            req.session.loggedUser = userData;
-            req.session.loginErr = false;
-            req.session.loginErrMsg = "";
-            res.redirect('/');
-        }
-    }catch(err){
-        console.log("Login Error: " + err);
-        req.session.loginErr = true;
-        req.session.loginErrMsg = err;
-        res.redirect('/')
+router.get('/signup', function(req, res){
+    if(req.session.userLoggedIn)
+        res.redirect('/');
+    else{
+        res.render('add-user', {
+            title:'Signup',
+        });
     }
 });
 
-router.get('/signup', function(req, res){
-    res.render('add-user', {
-        title:'Signup',
-    });
-});
+router.post('/login', controller.userLogin);
 
-router.get('/logout', function(req, res){
-    req.session.destroy();
-    res.redirect('/');
-});
+router.get('/logout', controller.logout);
 
 module.exports = router;  

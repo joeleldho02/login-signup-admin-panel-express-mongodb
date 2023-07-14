@@ -37,7 +37,7 @@ router.post('/login', async function(req, res){
             // req.session.loggedUser = userData;     
             // res.redirect('/');
     try{
-        const userData = await controller.login(req.body, true);
+        const userData = await controller.loginAuthenticate(req.body, true);
         console.log("Login Success: " + userData);
         if(userData){
             req.session.userLoggedIn = true;
@@ -49,8 +49,8 @@ router.post('/login', async function(req, res){
         }
     }catch(err){
         console.log("Login Error: " + err);
-        req.session.loginErr = true;
-        req.session.loginErrMsg = err;
+        req.session.adminLoginErr = true;
+        req.session.adminLoginErrMsg = err;
         res.redirect('/admin/login')
     }
 });
@@ -96,21 +96,30 @@ router.get('/edit-user/:id', async function(req, res){
             }catch(err){
                 console.log("Find User Error: " + err);
             }
-        }   
+        } 
+        else
+            res.redirect('back',{alertMsg:"Updated"});  
     }    
     else
         res.redirect('/'); 
 }); 
 
 router.get('/users', function(req, res){
-    if(req.session.userLoggedIn && req.session.isAdmin)
-        controller.find(req, res);
+    if(req.session.userLoggedIn && req.session.isAdmin){
+        if(req.query.searchuser){
+            controller.search(req, res);            
+        }
+        else{
+            controller.find(req, res);
+        }
+    }
     else
         res.redirect('/');
 });
-router.post('/users',controller.create);
-router.post('/edituser',controller.update);
-router.post('/deleteuser',controller.delete);
-router.post('/searchuser',controller.search);
+router.post('/adduser', controller.create);
+router.post('/edituser', controller.update);
+router.post('/deleteuser', controller.delete);
+//router.post('/users', controller.search);  
+//router.get('/users', controller.search); 
 
 module.exports = router;  

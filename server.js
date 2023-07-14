@@ -13,7 +13,7 @@ const connectDB = require('./server/database/connection')
 
 const app = express();
 
-const homeRouter = require('./routes/home');
+const userRouter = require('./routes/user');
 const adminRouter = require('./routes/admin');
 
 dotenv.config({path:'config.env'})
@@ -53,7 +53,7 @@ app.use(session({
     saveUninitialized: true
 }))
 
-app.use('/', homeRouter);
+app.use('/', userRouter);
 app.use('/admin', adminRouter);
 
 // catch 404 and forward to error handler

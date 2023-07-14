@@ -1,13 +1,81 @@
 const Userdb = require('../model/model');
 const bcrypt = require('bcrypt');
 
-//create user 
+function setSession(req, res, user){
+    req.session.userLoggedIn = true;
+    req.session.isAdmin = user.isAdmin;
+    req.session.loggedUser = user;
+    req.session.loginErr = false;
+    req.session.loginErrMsg = "";
+    res.redirect('/');
+}
+
+//login user to home page
+exports.userLogin = async function(req, res){
+    console.log(req.body);
+     //-------- CODE TO ADD ADMIN -----------//
+
+            // req.session.userLoggedIn = true;        
+            // req.session.isAdmin = true;
+            // req.session.loggedUser = userData;     
+            // res.redirect('/');
+    try{
+        const userData = await exports.loginAuthenticate(req.body);
+        console.log("Login Success: " + userData);
+        if(userData){
+            delete userData.password;
+            setSession(req, res, userData);
+        }
+    }catch(err){
+        console.log("Login Error: " + err);
+        req.session.loginErr = true;
+        req.session.loginErrMsg = err;
+        res.redirect('/')
+    }
+};
+
+//create new user and user signup after email duplicate check and then add to db
 exports.create = async (req, res) => {
-    if(!req.body){
+    if (!req.body) {
         console.log("No body submitted");
         res.redirect('/');
     }
-    else{
+    else {
+        Userdb.findOne({ $and: [{ email: req.body.email }, { isAdmin: false }] })
+            .then(user => {
+                console.log("User already exsits!");
+                if (user !== null) {
+                    if (req.session.isAdmin){
+                        res.render('add-user', {
+                            title: 'Add User',
+                            admin: req.session.isAdmin,
+                            navTitle: 'Add new user',
+                            loggedIn: true,
+                            signupErr: "Oops..!! User with entered email ID already exsits.",
+                            inputData: req.body
+                        });
+                    }
+                    else{
+                        //exports.userSignup(req, res);
+                        res.render('add-user', {
+                            title:'Signup',
+                            signupErr: "Oops..!! User with entered email ID already exsits.",
+                            inputData: req.body
+                        });
+                    }
+                }
+                else {
+                    addUserDetails(req, res);
+                }
+            }).catch(err => {
+                res.status(500).render('error', {
+                    message: err.message || "Unable to add user to database"
+                });
+            });
+    }
+};
+
+async function addUserDetails(req, res) {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
     const user = new Userdb({
         name: req.body.userName,
@@ -21,41 +89,42 @@ exports.create = async (req, res) => {
     user.save(user)
         .then(data => {
             console.log("Added user data: " + data)
-            if(req.session.isAdmin)
+            if (req.session.isAdmin)
                 res.redirect('/admin/users');
-            else
-                res.redirect('/');
-            })
+            else{
+                setSession(req, res, data);
+            }
+        })
         .catch(err => {
             res.status(500).render('error', {
                 message: err.message || "Unable to add user to database"
             });
         });
-    }
-};
+}
 
-//find one user by ID 
+//find one user by ID from db
 exports.findOne = (id) => {
     return new Promise((resolve, reject) => {
         Userdb.findById(id).lean()
-                .then(user => {
-                    if (!user) {
-                        reject("Unable to find user");                        
-                    }
-                    else {
-                        console.log(user);
-                        resolve(user);
-                    }
-                })
-                .catch(err => {
-                    reject("Error finding user in Database");                    
-                });
-    })    
+            .then(user => {
+                if (!user) {
+                    reject("Unable to find user");
+                }
+                else {
+                    console.log(user);
+                    resolve(user);
+                }
+            })
+            .catch(err => {
+                reject("Error finding user in Database");
+            });
+    })
 };
 
-//find and retrieve user(s)
-exports.find = (req, res) => {    
-    Userdb.find({ isAdmin: false },{name:1, gender:1 ,phone:1, email:1, isAdmin:1}).sort({ name: 1 }).lean()
+//find and retrieve user(s) to display in table
+exports.find = (req, res) => {
+    Userdb.find({ isAdmin: false }, { name: 1, gender: 1, phone: 1, email: 1, isAdmin: 1 }).collation({locale: "en"})
+        .sort({ name: 1 }).lean()
         .then(user => {
             console.log(user);
             res.render('show-users', {
@@ -63,7 +132,8 @@ exports.find = (req, res) => {
                 title: 'Admin Panel',
                 navTitle: 'Admin Panel',
                 loggedIn: true,
-                users: user
+                users: user,
+                //alertMsg: req.query.status
             });
         })
         .catch(err => {
@@ -74,7 +144,7 @@ exports.find = (req, res) => {
     // }
 };
 
-//update user by user id 
+//update user by user id in db
 exports.update = (req, res) => {
     if (!req.body) {
         return res.status(500).render('error', {
@@ -99,6 +169,7 @@ exports.update = (req, res) => {
             else {
                 console.log(data);
                 //res.send(data);   
+                const msg = "User details updated successfully!"
                 res.redirect('/admin/users');
             }
         })
@@ -109,7 +180,7 @@ exports.update = (req, res) => {
         });
 }
 
-//delete user with specified user id 
+//delete user with specified user id in db
 exports.delete = (req, res) => {
     if (!req.body) {
         return res.status(500).render('error', {
@@ -137,7 +208,7 @@ exports.delete = (req, res) => {
         });
 };
 
-//searc user by user name/email 
+//search user by user name/email 
 exports.search = (req, res) => {
     if (!req.body) {
         return res.status(500).render('error', {
@@ -145,9 +216,11 @@ exports.search = (req, res) => {
         });
     }
     console.log(req.body);
-    const searchValue= req.body.findValue;
-    const regex = new RegExp("^"+searchValue);
-    Userdb.find({ name : { $regex: regex, $options: 'i' }}).sort({name:1}).lean()
+    const searchValue = req.query.searchuser;
+    const regex = new RegExp("^" + searchValue);
+    Userdb.find({ $and: [{ name: { $regex: regex, $options: 'i' }}, { isAdmin: false }] })
+        .collation({locale: "en"})
+        .sort({ name: 1 }).lean()
         .then(data => {
             if (!data) {
                 res.status(404).render('error', {
@@ -156,38 +229,35 @@ exports.search = (req, res) => {
             }
             else {
                 let empty = false;
-                if(data.length === 0)
+                if (data.length === 0)
                     empty = true;
-                console.log(data);  
+                console.log(data);
                 res.render('show-users', {
                     style: 'show-users.css',
                     title: 'Admin Panel',
                     navTitle: 'Admin Panel',
                     loggedIn: true,
-                    users: data,  
+                    users: data,
                     showErr: empty
                 });
             }
         })
-        .catch(err => {
-            // res.status(500).render('error', {
-            //     message: err.message || "Error searching user in Database"
-            // });
+        .catch(err => {            
             res.send(err);
         });
 }
 
-//login user and admin
-exports.login = (body, val = false) => {
+//login validation user and admin
+exports.loginAuthenticate = (body, val = false) => {
     return new Promise((resolve, reject) => {
         if (!body) {
-            reject();
+            reject("Please input credentials");
         }
         else {
-            Userdb.findOne({$and:[{email: body.email}, {isAdmin: val}]})
+            Userdb.findOne({ $and: [{ email: body.email }, { isAdmin: val }] })
                 .then(user => {
                     console.log(user);
-                    if(user !== null) {
+                    if (user !== null) {
                         bcrypt.compare(body.password, user.password)
                             .then((status) => {
                                 if (status)
@@ -202,4 +272,10 @@ exports.login = (body, val = false) => {
                 })
         }
     });
+};
+
+//logout
+exports.logout = function(req, res){
+    req.session.destroy();
+    res.redirect('/');
 }

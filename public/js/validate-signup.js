@@ -60,11 +60,11 @@ function validateInputs(e) {
         setSuccess(username);
     }
 
-    const phoneno = /^\d{10}$/;
+    const phonenoRegex = /^\d{10}$/;
     if(phoneValue === ""){
         setSuccess(phone);
     }
-    else if(!phoneValue.match(phoneno)){
+    else if(!phoneValue.match(phonenoRegex)){
         setError(phone, 'Enter valid number', e);
         phone.focus();
         return false;
@@ -86,8 +86,14 @@ function validateInputs(e) {
         setSuccess(email);
     }
 
+    const passwordRegex  = /^[a-zA-Z0-9!@#$%^&*]{6,16}$/;
     if(passwordValue === '') {
         setError(password, 'Please enter password', e);
+        password.focus();
+        return false;
+    }
+    else if(!passwordValue.match(passwordRegex)){
+        setError(password, 'Min 6 characters', e);
         password.focus();
         return false;
     }
@@ -111,39 +117,12 @@ function validateInputs(e) {
     return true;
 }
 
-// const btnSubmit = document.getElementById('btn-submit');
-
-// btnSubmit.addEventListener('click', function () {
-//     console.log('submit btn click was recorded');
-
-//     if(validateInputs(e)) {
-//         form.submit();
-//     }
-// });
-
 form.addEventListener('submit', function(e) {
-    //e.preventDefault();
     console.log('form submit was recorded');
-    if(validateInputs(e)){ // ---------------------- >enable this
-        if(document.getElementById('btn-submit').innerText === "ADD USER")
-            alert("User added Successfully!");
-        else if(document.getElementById('btn-submit').innerText === "SIGNUP")
-            alert("Signup successfull! Please login to continue");
-        //setVisible('loading');
-        //form.reset();
-        
-        // fetch('/users', {method: 'POST'})
-        //     .then(function(response) {
-        //         if(response.ok) {
-        //             console.log('User data submitted');
-        //             form.reset();
-        //             setHide('loading');
-        //             return;
-        //         }
-        //         throw new Error('User data submission request failed.');
-        //     })
-        //     .catch(function(error) {
-        //         console.log(error);
-        // });
+    if(validateInputs(e)){                               // ---------------------- >enable this
+        // if(document.getElementById('btn-submit').innerText === "ADD USER")
+        //     alert("User added Successfully!");
+        //if(document.getElementById('btn-submit').innerText === "SIGNUP")
+         //   alert("Signup successfull! Please login to continue");        
     }
 })

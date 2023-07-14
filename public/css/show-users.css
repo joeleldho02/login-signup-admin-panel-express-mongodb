@@ -2,16 +2,14 @@
     margin : 0;
     padding: 0;
 }
-/* a,button a{
-    text-decoration: none;
-} */
 a,.btn-success a{
     text-decoration: none;
     color: #ffffff;
 }
 body {
     background-image: url("/img/admin-bg.jpg");
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: scroll;
 }
 .bg-color{
     background-color: rgb(102, 27, 27);
@@ -27,16 +25,12 @@ body {
 .btn-success:hover{
     background-color: rgb(18, 138, 40);
 }
-/* .container button{
-    background-color: rgb(12, 93, 27);
-    font-weight: 400;
-} */
 .btn-search{
     background-color: rgb(102, 27, 27);
 }
-/* .container button:hover{
-    background-color: rgb(18, 138, 40);
-} */
+.btn-search:hover{
+    background-color: rgb(182, 84, 84);
+}
 .iconbtn{
     color: #000000;
 }
