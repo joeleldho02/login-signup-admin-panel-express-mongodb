@@ -10,7 +10,8 @@
     <button class="btn btn-success mb-2"><a href="/admin/users"><i class="fa fa-users"></i> Show All Users</a></button>
     <div class="input-group mb-3 ms-3 w-25 float-end">
       <form id="search-hidden-form" action="/admin/users/" method="GET" class="p-0">
-        <input type="text" name="searchuser" id="searchuser" class="form-control" placeholder="User name">
+        <input type="text" name="searchuser" id="searchuser" value="{{searchInput}}"
+              class="form-control" placeholder="User name" onchange="searchPost('search-hidden-form')">
       </form>
       <div class="input-group-append">
         <button class="btn btn-search bg-color rounded-end-2 rounded-start-0 text-white" id="searchBtn"
@@ -70,6 +71,11 @@
   function searchPost(formID) {
     document.getElementById(formID).submit();
   }
+
+  
+
+
+
   //function displayAlert() {
   //  if(document.getElementById('alertMsg').textContent.length !== 0){
   //    showAlert();

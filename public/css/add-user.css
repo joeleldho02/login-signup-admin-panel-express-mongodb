@@ -7,6 +7,7 @@ a{
 }
 body {
     background-image: url("/img/admin-bg.jpg");
+    background-color: rgb(41, 40, 35);
     overflow: hidden;
 }
 

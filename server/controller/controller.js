@@ -238,7 +238,8 @@ exports.search = (req, res) => {
                     navTitle: 'Admin Panel',
                     loggedIn: true,
                     users: data,
-                    showErr: empty
+                    showErr: empty,
+                    searchInput: searchValue
                 });
             }
         })

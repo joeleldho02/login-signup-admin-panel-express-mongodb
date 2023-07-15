@@ -119,7 +119,7 @@ function validateInputs(e) {
 
 form.addEventListener('submit', function(e) {
     console.log('form submit was recorded');
-    if(validateInputs(e)){                               // ---------------------- >enable this
+    if(validateInputs(e)){                        // ---------------------- >enable this
         // if(document.getElementById('btn-submit').innerText === "ADD USER")
         //     alert("User added Successfully!");
         //if(document.getElementById('btn-submit').innerText === "SIGNUP")
