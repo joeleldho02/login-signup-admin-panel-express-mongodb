@@ -44,9 +44,14 @@
                         {{#if user}} 
                             method='POST' 
                             action="/admin/edituser"               
-                        {{else}}               
-                            method='POST' 
-                            action="/admin/adduser"
+                        {{else}}      
+                            {{#if admin}}         
+                                method='POST' 
+                                action="/admin/adduser"
+                            {{else}}
+                                method='POST' 
+                                action="/signup"
+                            {{/if}}
                         {{/if}}
                         >
                         {{#if user}}

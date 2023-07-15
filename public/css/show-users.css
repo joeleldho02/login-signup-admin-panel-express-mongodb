@@ -7,8 +7,8 @@ a,.btn-success a{
     color: #ffffff;
 }
 body {
+    background-color: rgb(41, 40, 35) !important;
     background-image: url("/img/admin-bg.jpg");
-    background-color: rgb(41, 40, 35);
     overflow-x: hidden;
     overflow-y: scroll;
 }

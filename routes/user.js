@@ -47,6 +47,8 @@ router.get('/signup', function(req, res){
     }
 });
 
+router.post('/signup', controller.create);
+
 router.post('/login', controller.userLogin);
 
 router.get('/logout', controller.logout);
