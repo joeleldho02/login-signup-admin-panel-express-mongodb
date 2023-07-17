@@ -12,7 +12,6 @@ function setSession(req, res, user){
 
 //login user to home page
 exports.userLogin = async function(req, res){
-    console.log(req.body);
      //-------- CODE TO ADD ADMIN -----------//
 
             // req.session.userLoggedIn = true;        
@@ -21,7 +20,6 @@ exports.userLogin = async function(req, res){
             // res.redirect('/');
     try{
         const userData = await exports.loginAuthenticate(req.body);
-        console.log("Login Success: " + userData);
         if(userData){
             delete userData.password;
             setSession(req, res, userData);
@@ -85,8 +83,7 @@ async function addUserDetails(req, res) {
         updatedAt: Date.now(),
         password: hashedPassword
     })
-    console.log(user);
-    user.save(user)
+    user.save()
         .then(data => {
             console.log("Added user data: " + data)
             if (req.session.isAdmin)
@@ -111,7 +108,6 @@ exports.findOne = (id) => {
                     reject("Unable to find user");
                 }
                 else {
-                    console.log(user);
                     resolve(user);
                 }
             })
@@ -126,7 +122,6 @@ exports.find = (req, res) => {
     Userdb.find({ isAdmin: false }, { name: 1, gender: 1, phone: 1, email: 1, isAdmin: 1 }).collation({locale: "en"})
         .sort({ name: 1 }).lean()
         .then(user => {
-            console.log(user);
             res.render('show-users', {
                 style: 'show-users.css',
                 title: 'Admin Panel',
@@ -167,7 +162,6 @@ exports.update = (req, res) => {
                 });
             }
             else {
-                console.log(data);
                 //res.send(data);   
                 const msg = "User details updated successfully!"
                 res.redirect('/admin/users');
@@ -197,7 +191,7 @@ exports.delete = (req, res) => {
                 });
             }
             else {
-                console.log("Delete succes: " + data);
+                //console.log("Delete succes: " + data);
                 res.redirect('/admin/users');
             }
         })
@@ -231,7 +225,7 @@ exports.search = (req, res) => {
                 let empty = false;
                 if (data.length === 0)
                     empty = true;
-                console.log(data);
+                //console.log(data);
                 res.render('show-users', {
                     style: 'show-users.css',
                     title: 'Admin Panel',
@@ -257,7 +251,7 @@ exports.loginAuthenticate = (body, val = false) => {
         else {
             Userdb.findOne({ $and: [{ email: body.email }, { isAdmin: val }] })
                 .then(user => {
-                    console.log(user);
+                    //console.log(user);
                     if (user !== null) {
                         bcrypt.compare(body.password, user.password)
                             .then((status) => {
